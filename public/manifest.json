@@ -1,0 +1,15 @@
+{
+  "short_name": "mp3tube",
+  "name": "download mp3 directly",
+  "icons": [
+    {
+      "src":"https://dummyimage.com/100x100/000000/ffffff.png&text=mp3tube",
+      "sizes": "100x100",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#fff",
+  "theme_color": "#ee0979",
+  "display": "standalone"
+}
