@@ -1,10 +1,10 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
 import PropTypes from 'prop-types'
-import './PageLayout.css'
+import './PageLayout.scss'
 
 export const PageLayout = ({ children }) => (
-  <div>
+  <div className="layout">
     {children}
   </div>
 )
