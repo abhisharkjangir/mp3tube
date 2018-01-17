@@ -43,7 +43,7 @@ class Trending extends Component {
     return (<div className="trending">
       { this.state.isVideoPlaying && <Videoplayer url={`https://www.youtube.com/watch?v=${this.state.playingVideoID}`} closeVideo={this.closeVideo} />}
       <div className="heading">
-        <p> Trending Videos</p>
+        <p> Trending Videos </p>
       </div>
       {this.state.isLoading && <Loader />}
       <div className="video-listing">

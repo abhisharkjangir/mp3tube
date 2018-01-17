@@ -106,9 +106,25 @@ p{
 .video-listing{
   padding: 10px;
 }
+
+.video-card-container {
+  position: relative;
+}
+.videocard-overlay{
+  background-color: #000000d1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 15px;
+  color: #fff;
+  text-align: center;
+}
 .video-card{
   padding: 6px 0px 0px 5px;
-  background-color: #eeeeee;
+  background-color: #fff;
+  border: 1px solid #eee;
 }
 
 .video-thumbnail{
@@ -131,12 +147,15 @@ p{
   width: calc(100% - 120px);
 }
 
-.video-actions{
-  background-color: #929292;
+.video-actions, .video-actions a{
+  background-color: #eee;
   padding: 5px;
   text-align: center;
-  color: #fff;
+  color: #5a5a5a;
   margin-bottom: 10px;
+}
+.download-ready {
+  color : green!important;
 }
 
 .video-player-container {
