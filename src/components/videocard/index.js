@@ -10,7 +10,8 @@ class Videocard extends Component {
       isLoading : false,
     };
     this.playVideo = this.playVideo.bind(this);
-    this.fetchLink = this.fetchLink.bind(this);
+    this.fetchMp4Link = this.fetchMp4Link.bind(this);
+    this.fetchMp3Link = this.fetchMp3Link.bind(this);
   }
 
    playVideo () {
@@ -22,14 +23,28 @@ class Videocard extends Component {
 
   }
 
-  fetchLink () {
+  fetchMp4Link () {
     this.setState({isLoading : true})
     let fuck = this;
-    fetch(`http://imabhi.herokuapp.com/yt/link?id=${this.props.video.id}`)
+    fetch(`http://imabhi.herokuapp.com/yt/kvid?id=${this.props.video.id}`)
     .then(r => r.json())
     .then(r => {
-      location.href  = r.data.link;
-      fuck.setState({isLoading : false, link : r.data.link});
+      console.log(r.data.mp4);
+      location.href  = r.data.mp4;
+      fuck.setState({isLoading : false, links: r.data});
+    }).catch(err => {
+      fuck.setState({isLoading : true});
+    })
+  }
+
+  fetchMp3Link () {
+    this.setState({isLoading : true})
+    let fuck = this;
+    fetch(`http://imabhi.herokuapp.com/yt/kvid?id=${this.props.video.id}`)
+    .then(r => r.json())
+    .then(r => {
+      location.href  = r.data.mp3;
+      fuck.setState({isLoading : false, links: r.data});
     }).catch(err => {
       fuck.setState({isLoading : true});
     })
@@ -59,14 +74,16 @@ class Videocard extends Component {
                 <i className="fa fa-play"></i> Play
               </p>
             </div>
+            {this.state.links  && <code>{this.state.links.mp3}</code>}
             <div className="col-xs-4">
-              <p>
-                <i className="fa fa-download"></i> Mp3</p>
+              {!this.state.links && <p onClick={this.fetchMp3Link}>
+                <i className="fa fa-download"></i> Mp3</p>}
+                {this.state.links && <a href={this.state.links.mp3} download> <i className="fa fa-check"></i> Mp3</a>}
             </div>
             <div className="col-xs-4" >
-              {!this.state.link && <p onClick={this.fetchLink}>
+              {!this.state.links && <p onClick={this.fetchMp4Link}>
                 <i className="fa fa-download"></i> Mp4</p>}
-                {this.state.link && <a href={this.state.link} download> <i className="fa fa-check"></i> Mp4</a>}
+                {this.state.links && <a href={this.state.links.mp4} download> <i className="fa fa-check"></i> Mp4</a>}
             </div>
           </div>
         </div>
@@ -78,7 +95,6 @@ class Videocard extends Component {
       </div>
     )
   }
-
 }
 
 
