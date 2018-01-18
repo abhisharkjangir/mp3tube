@@ -23,8 +23,8 @@ class Mp3modal extends Component{
 
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.yes} bsStyle="primary" bsSize="sm">{this.props.yesBtnLabel}</Button>
-          <Button onClick={this.props.no} bsSize="sm">{this.props.noBtnLabel}</Button>
+          {/* <Button onClick={this.props.yes} bsStyle="primary" bsSize="sm">{this.props.yesBtnLabel}</Button> */}
+          <Button onClick={this.props.no} bsSize="sm">Close</Button>
         </Modal.Footer>
       </Modal>
     )
