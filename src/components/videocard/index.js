@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import Truncate from 'react-truncate';
 import moment from 'moment'
-
+import Mp3Modal from '../../components/mp3/mp3modal'
 
 class Videocard extends Component {
   constructor() {
     super()
     this.state = {
-      isLoading : false,
+      isLoading : false,modalOpen : false
     };
     this.playVideo = this.playVideo.bind(this);
     this.fetchMp4Link = this.fetchMp4Link.bind(this);
     this.fetchMp3Link = this.fetchMp3Link.bind(this);
+    this.openMp3Modal = this.openMp3Modal.bind(this)
+    this.closeMp3Modal = this.closeMp3Modal.bind(this)
   }
 
    playVideo () {
@@ -21,6 +23,14 @@ class Videocard extends Component {
   componentWillMount () {
     // console.log(location);
 
+  }
+
+  openMp3Modal(){
+    this.setState({modalOpen : true})
+  }
+
+  closeMp3Modal(){
+    this.setState({modalOpen : false})
   }
 
   fetchMp4Link () {
@@ -69,17 +79,27 @@ class Videocard extends Component {
         </div>
         <div className="video-actions">
           <div className="row">
-            <div className="col-xs-6">
+            <div className="col-xs-4">
               <p onClick={this.playVideo}>
                 <i className="fa fa-play"></i> Play
               </p>
             </div>
-            {/* <div className="col-xs-4">
-              {!this.state.links && <p onClick={this.fetchMp3Link}>
-                <i className="fa fa-download"></i> Mp3</p>}
-                {this.state.links && <a className="download-ready" href={this.state.links.mp3} download> <i className="fa fa-check"></i> Mp3</a>}
-            </div> */}
-            <div className="col-xs-6" >
+            <div className="col-xs-4">
+              <p onClick={this.openMp3Modal}>
+                <i className="fa fa-download"></i> Mp3</p>
+                {this.state.modalOpen && <Mp3Modal
+                  id={this.props.video.id}
+                  open={this.state.modalOpen}
+                  close={this.closeMp3Modal}
+                  yes={this.clearWords}
+                  no={this.closeMp3Modal}
+                  title="Please wait..."
+                  body="It will take a few seconds to load :)"
+                  yesBtnLabel="Yes"
+                  noBtnLabel="No"
+                />}
+            </div>
+            <div className="col-xs-4" >
               {!this.state.link && <p onClick={this.fetchMp4Link}>
                 <i className="fa fa-download"></i> Mp4</p>}
                 {this.state.link && <a className="download-ready" href={this.state.link} download> <i className="fa fa-check"></i> Mp4</a>}
