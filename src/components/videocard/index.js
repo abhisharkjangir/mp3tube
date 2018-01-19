@@ -7,11 +7,10 @@ class Videocard extends Component {
   constructor() {
     super()
     this.state = {
-      isLoading : false,modalOpen : false
+      isLoading : false ,modalOpen : false
     };
     this.playVideo = this.playVideo.bind(this);
     this.fetchMp4Link = this.fetchMp4Link.bind(this);
-    this.fetchMp3Link = this.fetchMp3Link.bind(this);
     this.openMp3Modal = this.openMp3Modal.bind(this)
     this.closeMp3Modal = this.closeMp3Modal.bind(this)
   }
@@ -36,29 +35,27 @@ class Videocard extends Component {
   fetchMp4Link () {
     this.setState({isLoading : true})
     let fuck = this;
-    fetch(`http://imabhi.herokuapp.com/yt/kvidsite?id=${this.props.video.id}`)
+    fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`)
     .then(r => r.json())
     .then(r => {
-      // console.log(r.data.mp4);
-      // location.href  = r.data.mp4;
-      fuck.setState({isLoading : false, link: r.data.mp4});
+      fuck.setState({isLoading : false, links:{ mp4 : r[4].file_url , mp3 : r[5].file_url}});
     }).catch(err => {
-      fuck.setState({isLoading : true});
+      console.log('error');
+      fuck.setState({isLoading : false});
     })
   }
 
-  fetchMp3Link () {
-    this.setState({isLoading : true})
-    let fuck = this;
-    fetch(`http://imabhi.herokuapp.com/yt/kvidsite?id=${this.props.video.id}`)
-    .then(r => r.json())
-    .then(r => {
-      // location.href  = r.data.mp3;
-      fuck.setState({isLoading : false, links: r.data});
-    }).catch(err => {
-      fuck.setState({isLoading : true});
-    })
-  }
+  // fetchMp3Link () {
+  //   this.setState({isLoading : true})
+  //   let fuck = this;
+  //   fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`)
+  //   .then(r => r.json())
+  //   .then(r => {
+  //     fuck.setState({isLoading : false, link: { mp3: r[5].file_url}});
+  //   }).catch(err => {
+  //     fuck.setState({isLoading : true});
+  //   })
+  // }
 
   render(){
     return (
@@ -85,31 +82,18 @@ class Videocard extends Component {
               </p>
             </div>
             <div className="col-xs-4">
-              <p onClick={this.openMp3Modal}>
-                <i className="fa fa-download"></i> Mp3</p>
-                {this.state.modalOpen && <Mp3Modal
-                  id={this.props.video.id}
-                  open={this.state.modalOpen}
-                  close={this.closeMp3Modal}
-                  yes={this.clearWords}
-                  no={this.closeMp3Modal}
-                  title="Please wait..."
-                  body="It will take a few seconds to load :)"
-                  yesBtnLabel="Yes"
-                  noBtnLabel="No"
-                />}
+              {this.state.links && <a className="download-ready" href={this.state.links.mp3} download={this.props.video.snippet.title + 'mp3'}> <i className="fa fa-check"></i> Mp3</a>}
             </div>
             <div className="col-xs-4" >
-              {!this.state.link && <p onClick={this.fetchMp4Link}>
-                <i className="fa fa-download"></i> Mp4</p>}
-                {this.state.link && <a className="download-ready" href={this.state.link} download> <i className="fa fa-check"></i> Mp4</a>}
+              {!this.state.links && <p onClick={this.fetchMp4Link}> <i className="fa fa-download"></i> Download</p>}
+              {this.state.links && <a className="download-ready" href={this.state.links.mp4} download={this.props.video.snippet.title + '.mp4'}> <i className="fa fa-check"></i> Mp4</a>}
             </div>
           </div>
         </div>
         <p>{this.state.isLoading}</p>
         {this.state.isLoading && <div className="videocard-overlay">
-          Preparing to download...<br/><br/>
-          Thanks for your patience
+          Preparing...<br/><br/>
+          Thanks for your patience :)
         </div>}
       </div>
     )
