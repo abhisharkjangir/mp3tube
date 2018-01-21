@@ -60,10 +60,10 @@ class Search extends Component {
     this.handleSearchDebounced()
   }
 
-  playVideo(video){
+  playVideo(url){
     this.setState({
       isVideoPlaying : true,
-      playingVideoID : video.id
+      playingVideoID : url
     })
   }
 
@@ -98,7 +98,7 @@ class Search extends Component {
         {this.state.list.length == 0 && !this.state.isSearching && <div className="no-data-found">
           <p><i className="fa fa-video-camera fa-3x"></i><br/>search somthing awesome :)</p>
         </div>}
-        { this.state.isVideoPlaying && <Videoplayer url={`https://www.youtube.com/watch?v=${this.state.playingVideoID}`} closeVideo={this.closeVideo}/>}
+        { this.state.isVideoPlaying && <Videoplayer url={this.state.playingVideoID} closeVideo={this.closeVideo}/>}
         {this.state.list.length > 0 &&  <div className="heading">
           <p>Showing result(s) for '{this.state.q}'</p>
         </div>}
