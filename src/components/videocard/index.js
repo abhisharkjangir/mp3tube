@@ -23,11 +23,12 @@ class Videocard extends Component {
   fetchMp4Link () {
     this.setState({isLoading : true})
     let fuck = this;
-    fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`,{ mode: 'no-cors' })
-    .then(r => r.json())
+    fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`)
+    .then(r => r.text())
     .then(r => {
       fuck.setState({isLoading : false, links:{ mp4 : r[4].file_url , mp3 : r[5].file_url}});
     }).catch(err => {
+      console.log(err);
       fuck.setState({isLoading : false});
     })
   }
