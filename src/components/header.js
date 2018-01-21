@@ -3,11 +3,6 @@ import PropTypes from 'prop-types'
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 
 class Header extends React.Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
-  }
-
 
   goToUrl (url){
     this.props.history.push(url);

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Truncate from 'react-truncate';
 import moment from 'moment'
-import Mp3Modal from '../../components/mp3/mp3modal'
 
 class Videocard extends Component {
   constructor() {
@@ -11,58 +10,35 @@ class Videocard extends Component {
     };
     this.playVideo = this.playVideo.bind(this);
     this.fetchMp4Link = this.fetchMp4Link.bind(this);
-    this.openMp3Modal = this.openMp3Modal.bind(this)
-    this.closeMp3Modal = this.closeMp3Modal.bind(this)
-  }
-
+}
    playVideo () {
-    this.props.play(this.props.video)
+    this.props.play(`https://www.youtube.com/watch?v=${this.props.video.id}`)
   }
 
   componentWillMount () {
-    // console.log(location);
 
   }
 
-  openMp3Modal(){
-    this.setState({modalOpen : true})
-  }
-
-  closeMp3Modal(){
-    this.setState({modalOpen : false})
-  }
 
   fetchMp4Link () {
     this.setState({isLoading : true})
     let fuck = this;
-    fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`)
+    fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`,{ mode: 'no-cors' })
     .then(r => r.json())
     .then(r => {
       fuck.setState({isLoading : false, links:{ mp4 : r[4].file_url , mp3 : r[5].file_url}});
     }).catch(err => {
-      console.log('error');
       fuck.setState({isLoading : false});
     })
   }
 
-  // fetchMp3Link () {
-  //   this.setState({isLoading : true})
-  //   let fuck = this;
-  //   fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     fuck.setState({isLoading : false, link: { mp3: r[5].file_url}});
-  //   }).catch(err => {
-  //     fuck.setState({isLoading : true});
-  //   })
-  // }
 
   render(){
     return (
       <div className="video-card-container">
         <div className="video-card">
           <div className="video-thumbnail">
-            <img src={this.props.video.snippet.thumbnails.default.url} className="img-responsive"/>
+            <img src={this.props.video.snippet.thumbnails.high.url} className="img-responsive"/>
           </div>
           <div className="video-description">
             <Truncate lines={2}>
