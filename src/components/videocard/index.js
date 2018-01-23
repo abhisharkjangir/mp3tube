@@ -16,7 +16,12 @@ class Videocard extends Component {
   }
 
   componentWillMount () {
+    if(this.props.video.snippet.thumbnails) {
 
+    } else {
+      console.log('dont render');
+      this.setState({dontrender : true})
+    }
   }
 
 
@@ -38,7 +43,7 @@ class Videocard extends Component {
   render(){
     return (
       <div className="video-card-container">
-        <div className="video-card">
+        {!this.state.dontrender && <div className="video-card">
           <div className="video-thumbnail">
             <img src={this.props.video.snippet.thumbnails.high.url} className="img-responsive"/>
           </div>
@@ -51,8 +56,8 @@ class Videocard extends Component {
             </Truncate></b>
             <p>Published on {moment(this.props.video.snippet.publishedAt).format('Do MMM YYYY')}</p>
           </div>
-        </div>
-        <div className="video-actions">
+        </div>}
+        {!this.state.dontrender && <div className="video-actions">
           <div className="row">
             <div className="col-xs-4">
               <p onClick={this.playVideo}>
@@ -67,9 +72,9 @@ class Videocard extends Component {
               {this.state.links && <a className="download-ready" href={this.state.links.mp4} download> <i className="fa fa-check"></i> Mp4</a>}
             </div>
           </div>
-        </div>
-        <p>{this.state.isLoading}</p>
-        {this.state.isLoading && <div className="videocard-overlay">
+        </div>}
+        {!this.state.dontrender && <p>{this.state.isLoading}</p>}
+        {!this.state.dontrender && this.state.isLoading && <div className="videocard-overlay">
           Preparing...<br/><br/>
           Thanks for your patience :)
         </div>}

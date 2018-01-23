@@ -23,17 +23,15 @@ class Trending extends Component {
     fetch('https://mp3tube1.herokuapp.com/youtube/trending')
     .then(r => r.json())
     .then(r => {
-      this.setState({list : r.items, isLoading : false});
+      this.setState({list : r.items.slice(0,5), isLoading : false});
     });
 
     fetch('http://imabhi.herokuapp.com/yt/tp')
     .then(r => r.json())
     .then(r => {
       if (r.success){
-        this.setState({punjabi : r.data, isPunjabiLoading : false});
+        this.setState({punjabi : r.data.slice(0,5), isPunjabiLoading : false});
       }
-
-      // this.setState({punjabi : r.items, isPunjabiLoading : false});
     })
   }
 
@@ -52,7 +50,7 @@ class Trending extends Component {
 
   render() {
     var settings = {
-      dots: false,
+      dots: true,
       infinite: false,
       speed: 500,
       slidesToShow: 1,
@@ -67,7 +65,7 @@ class Trending extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-6 p-0"><p> Trending Videos  </p></div>
-            {/* <div className="col-xs-6 p-0 text-right"><a className="" href="">View all</a></div> */}
+            <div className="col-xs-6 p-0 text-right"><a className="" href="#/topyoutube">View all</a></div>
           </div>
         </div>
       </div>
@@ -79,7 +77,7 @@ class Trending extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-6 p-0"><p> Top Punjabi </p></div>
-            {/* <div className="col-xs-6 p-0 text-right"><a className="" href="">View all</a></div> */}
+            <div className="col-xs-6 p-0 text-right"><a className="" href="#/toppunjabi">View all</a></div>
           </div>
         </div>
       </div>

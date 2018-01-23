@@ -30,6 +30,10 @@ p{
   padding: 0;
 }
 
+.m-b-10{
+  margin-bottom: 10px;
+}
+
 .navbar{
   margin-bottom: 0;
 }
@@ -72,7 +76,8 @@ p{
   background-color: #ffffff;
   padding: 10px;
   border-bottom: 1px solid #eeeeee;
-
+  margin-top: 25px;
+  border-top: 1px solid #eeeeee;
 }
 
 .trending .heading a {
@@ -273,7 +278,7 @@ div[role="dialog"]{
 
 .slick-card{
   background-color: #fff;
-  border-bottom: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
 
 }
 
@@ -384,4 +389,16 @@ div[role="dialog"]{
 .mp3-actions ul li {
   display: inline-block;
   margin: 0 5px;
+}
+
+// slick
+.slick-dots {
+  bottom: -20px!important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #f1275d;
+}
+.slick-dots li button:before {
+    color: #000000;
 }
