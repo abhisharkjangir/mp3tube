@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Videocard from '../../../components/videocard'
 import Videoplayer from '../../../components/videoplayer/videoplayer'
 import Loader from '../../../components/loader'
+import { hashHistory, Router } from 'react-router'
+
 const debounce = (func, delay) => {
   let inDebounce = undefined;
   return function() {
@@ -31,7 +33,10 @@ class Search extends Component {
 
   componentWillMount(){
     this.handleSearchDebounced = debounce(this.fetchVideos, 500);
-
+    if (this.props.location.query.q && this.props.location.query.q.length > 0) {
+      this.setState({q : this.props.location.query.q})
+      this.handleSearchDebounced()
+    }
   }
 
   fetchVideos(){
@@ -48,6 +53,9 @@ class Search extends Component {
            v.snippet = v;
            return v;
          })
+         nl = nl.filter(v => {
+            return v.kind.split('#')[1] == 'video'
+         })
          this.setState({list : nl});
       }
       this.setState({isSearching : false});
@@ -55,7 +63,8 @@ class Search extends Component {
   }
 
   debounceSearch(e){
-    let q = e.target.value
+    let q = e.target.value;
+    hashHistory.push(`search?q=${q}`)
     this.setState({q : q})
     this.handleSearchDebounced()
   }
@@ -77,6 +86,7 @@ class Search extends Component {
   clearSearch(){
     this.setState({q :'', list : [],isVideoPlaying : false,
     playingVideoID : undefined});
+    hashHistory.push(`search`)
   }
 
   render() {

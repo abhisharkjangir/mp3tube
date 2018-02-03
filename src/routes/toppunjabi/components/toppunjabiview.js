@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Loader from '../../../components/loader'
 import Mp3card from '../../../components/mp3'
+import Searchtypehead from  '../../../components/searchtypehead/searchtypehead'
 
 class Toppunjabi extends Component {
   constructor() {
@@ -22,22 +23,22 @@ class Toppunjabi extends Component {
     })
   }
 
-
   render() {
     return (
-    <div className="trending">
-      <div className="heading">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-xs-6 p-0"><p> Top Punjabi </p></div>
+    <div>
+      <Searchtypehead />
+      <div className="trending">
+        <div className="heading">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-6 p-0"><p> Top Punjabi </p></div>
+            </div>
           </div>
         </div>
+        {this.state.isPunjabiLoading && <Loader />}
+        {this.state.punjabi.map((mp3,i) => <Mp3card key={mp3.info.track} mp3={mp3.info} play={this.playVideo} />)}
       </div>
-      {this.state.isPunjabiLoading && <Loader />}
-      {this.state.punjabi.map((mp3,i) => <Mp3card key={mp3.info.track} mp3={mp3.info} play={this.playVideo} />)}
-
-
-    </div>    )
+    </div>)
   }
 }
 

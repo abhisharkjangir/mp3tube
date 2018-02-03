@@ -1,9 +1,9 @@
 {
   "short_name": "mp3tube",
-  "name": "download mp3 directly",
+  "name": "",
   "icons": [
     {
-      "src":"https://dummyimage.com/100x100/000000/ffffff.png&text=mp3tube",
+      "src":"https://i.imgur.com/ZykF3BZ.png",
       "sizes": "100x100",
       "type": "image/png"
     }

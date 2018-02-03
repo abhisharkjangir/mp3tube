@@ -31,7 +31,6 @@ class Videocard extends Component {
     .then(r => r.json())
     .then(r => {
       fuck.setState({isLoading : false, links:{ mp4 : r[4].file_url , mp3 : r[5].file_url}});
-      // console.log(this.state.links);
     }).catch(err => {
       console.log(err);
       fuck.setState({isLoading : false});

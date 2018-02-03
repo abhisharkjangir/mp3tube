@@ -7,19 +7,19 @@ import Videoplayer from '../../../components/videoplayer/videoplayer'
 import Loader from '../../../components/loader'
 import Slider from 'react-slick'
 import Mp3card from '../../../components/mp3'
+import Searchtypehead from  '../../../components/searchtypehead/searchtypehead'
 
 class Trending extends Component {
   constructor() {
     super()
     this.state = {
-      list : [],isVideoPlaying : false, punjabi : [], isPunjabiLoading : false
+      list : [],isVideoPlaying : false, punjabi : [], isPunjabiLoading : false, q :''
     };
     this.playVideo = this.playVideo.bind(this);
     this.closeVideo = this.closeVideo.bind(this);
   }
 
   componentWillMount(){
-
     this.setState({isLoading : true, isPunjabiLoading : true})
     fetch('https://mp3tube1.herokuapp.com/youtube/trending')
     .then(r => r.json())
@@ -42,6 +42,7 @@ class Trending extends Component {
       playingVideoID : url
     })
   }
+
   closeVideo(){
     this.setState({
       isVideoPlaying : false,
@@ -59,9 +60,10 @@ class Trending extends Component {
       autoplay : false,
       arrows : false
     };
-    var list = [1,2,3,4,5,6]
+
     return (<div className="trending">
       { this.state.isVideoPlaying && <Videoplayer url={this.state.playingVideoID} closeVideo={this.closeVideo} loop/>}
+      <Searchtypehead className="search-typehead"/>
       <div className="heading">
         <div className="container-fluid">
           <div className="row">
@@ -74,7 +76,7 @@ class Trending extends Component {
       <Slider {...settings}>
         {this.state.list.map(video => <div key={video.id} className="slick-card"><Videocard video={video}   play={this.playVideo}/></div>)}
       </Slider>
-      <div className="heading">
+      <div className="heading m-t-25">
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-6 p-0"><p> Top Punjabi </p></div>
@@ -84,13 +86,9 @@ class Trending extends Component {
       </div>
       {this.state.isPunjabiLoading && <Loader />}
         {this.state.punjabi.map((mp3,i) => <Mp3card key={mp3.info.track} mp3={mp3.info} play={this.playVideo} />)}
-
     </div>)
   }
 }
 
-Trending.propTypes = {
-
-}
 
 export default Trending

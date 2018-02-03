@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Videocard from '../../../components/videocard'
 import Videoplayer from '../../../components/videoplayer/videoplayer'
 import Loader from '../../../components/loader'
+import Searchtypehead from  '../../../components/searchtypehead/searchtypehead'
 
 class Topyoutube extends Component {
   constructor() {
@@ -39,26 +40,29 @@ class Topyoutube extends Component {
 
   render() {
     return (
-    <div className="trending">
-      { this.state.isVideoPlaying && <Videoplayer url={this.state.playingVideoID} closeVideo={this.closeVideo} loop/>}
-      <div className="heading m-b-10">
+    <div>
+      <Searchtypehead />
+      <div className="trending">
+        { this.state.isVideoPlaying && <Videoplayer url={this.state.playingVideoID} closeVideo={this.closeVideo} loop/>}
+        <div className="heading m-b-10">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-6 p-0"><p> Trending  Videos  </p></div>
+              {/* <div className="col-xs-6 p-0 text-right"><a className="" href="">View all</a></div> */}
+            </div>
+          </div>
+        </div>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xs-6 p-0"><p> Trending  Videos  </p></div>
-            {/* <div className="col-xs-6 p-0 text-right"><a className="" href="">View all</a></div> */}
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-12 ">
-            {this.state.isLoading && <Loader />}
+            <div className="col-md-12 ">
+              {this.state.isLoading && <Loader />}
 
-              {this.state.list.map(video => <Videocard key={video.id} video={video} play={this.playVideo}/>)}
+                {this.state.list.map(video => <Videocard key={video.id} video={video} play={this.playVideo}/>)}
+            </div>
           </div>
         </div>
       </div>
-    </div>    )
+    </div>   )
   }
 }
 
