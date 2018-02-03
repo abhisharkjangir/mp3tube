@@ -7,6 +7,7 @@ import Videoplayer from '../../../components/videoplayer/videoplayer'
 import Loader from '../../../components/loader'
 import Slider from 'react-slick'
 import Mp3card from '../../../components/mp3'
+
 class Trending extends Component {
   constructor() {
     super()

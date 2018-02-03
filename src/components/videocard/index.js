@@ -19,7 +19,6 @@ class Videocard extends Component {
     if(this.props.video.snippet.thumbnails) {
 
     } else {
-      console.log('dont render');
       this.setState({dontrender : true})
     }
   }
@@ -65,11 +64,11 @@ class Videocard extends Component {
               </p>
             </div>
             <div className="col-xs-4">
-              {this.state.links && <a className="download-ready" href={this.state.links.mp3} download> <i className="fa fa-check"></i> Mp3</a>}
+              {this.state.links && <a className="download-ready" href={`${this.state.links.mp3}&title=${this.props.video.snippet.title}`} download> <i className="fa fa-check"></i> Mp3</a>}
             </div>
             <div className="col-xs-4" >
               {!this.state.links && <p onClick={this.fetchMp4Link}> <i className="fa fa-download"></i> Download</p>}
-              {this.state.links && <a className="download-ready" href={this.state.links.mp4} download> <i className="fa fa-check"></i> Mp4</a>}
+              {this.state.links && <a className="download-ready" href={`${this.state.links.mp4}&title=${this.props.video.snippet.title}`} download> <i className="fa fa-check"></i> Mp4</a>}
             </div>
           </div>
         </div>}
