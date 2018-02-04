@@ -160,6 +160,34 @@ p {
   justify-content: center;
 }
 
+.videocard-download {
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  color: #fff;
+  flex-flow: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  border: 1px solid #eee;
+
+}
+.videocard-download a{
+  text-align: center;
+  font-size: 12px;
+  color: #fff!important;
+  /* border: 1px solid #fff; */
+  margin: 2px;
+  background: linear-gradient(90deg,#ff6a00,#ee0979);
+  padding: 2px;
+  width: 150px;
+  cursor: pointer;
+}
+
 .video-card {
   padding: 6px 0 0 5px;
   background-color: #fff;
@@ -455,4 +483,7 @@ div[role="dialog"] {
 }
 .rbt-menu > li a {
   padding: 5px 10px;
+}
+.dropdown-menu{
+  z-index: 9999!important;
 }

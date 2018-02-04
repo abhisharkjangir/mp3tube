@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Truncate from 'react-truncate';
 import moment from 'moment'
+import {ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 
 class Videocard extends Component {
   constructor() {
@@ -30,7 +31,9 @@ class Videocard extends Component {
     fetch(`http://api.imabhi.in?vid_url=https://www.youtube.com/watch?v=${this.props.video.id}`)
     .then(r => r.json())
     .then(r => {
-      fuck.setState({isLoading : false, links:{ mp4 : r[4].file_url , mp3 : r[5].file_url}});
+      r = r.filter((v) => v.resolution.split('x')[1] == '720')
+      fuck.setState({isLoading : false, link:r[0]});
+      console.log(fuck.state.link);
     }).catch(err => {
       console.log(err);
       fuck.setState({isLoading : false});
@@ -57,29 +60,41 @@ class Videocard extends Component {
         </div>}
         {!this.state.dontrender && <div className="video-actions">
           <div className="row">
-            <div className="col-xs-4">
+            <div className="col-xs-6 text-left">
               <p onClick={this.playVideo}>
                 <i className="fa fa-play"></i> Play
               </p>
             </div>
-            <div className="col-xs-4">
-              {this.state.links && <a className="download-ready" href={`${this.state.links.mp3}&title=${this.props.video.snippet.title}`} download> <i className="fa fa-check"></i> Mp3</a>}
-            </div>
-            <div className="col-xs-4" >
-              {!this.state.links && <p onClick={this.fetchMp4Link}> <i className="fa fa-download"></i> Download</p>}
-              {this.state.links && <a className="download-ready" href={`${this.state.links.mp4}&title=${this.props.video.snippet.title}`} download> <i className="fa fa-check"></i> Mp4</a>}
+            {/* <div className="col-xs-4">
+              {this.state.link && <a className="download-ready" href={`${this.state.link.mp3}&title=${this.props.video.snippet.title}`} download> <i className="fa fa-check"></i> Mp3</a>}
+            </div> */}
+            <div className="col-xs-6 text-right" >
+              {!this.state.link && <p onClick={this.fetchMp4Link}> <i className="fa fa-download"></i> Download</p>}
+              {this.state.link && <a className="download-ready" href={`${this.state.link.file_url}&title=${this.props.video.snippet.title}`} download> <i className="fa fa-download"></i> 720p [{Math.ceil(this.state.link.file_size/(1024*1024))} mb]</a>
+              }
             </div>
           </div>
         </div>}
-        {!this.state.dontrender && <p>{this.state.isLoading}</p>}
-        {!this.state.dontrender && this.state.isLoading && <div className="videocard-overlay">
-          Preparing...<br/><br/>
-          Thanks for your patience :)
-        </div>}
+        {!this.state.dontrender && this.state.isLoading && <Preparing />}
       </div>
     )
   }
 }
+
+// const Downloadview = (props) => (
+//   <div className="videocard-download">
+//     {props.list.map(link => <a  href={`${link.file_url}&title=${props.title}`} download><i className="fa fa-download"></i>  {link.resolution.split('x')[1]}p [{Math.ceil(link.file_size/(1024*1024))} mb]</a>)}
+//     <a ><i className="fa fa-play"></i> Play</a>
+//     <a ><i className="fa fa-close"></i> Close</a>
+//   </div>
+// )
+
+const Preparing = ( ) => (
+  <div className="videocard-overlay">
+    <span>Preparing...<br/><br/>
+    Thanks for your patience :)</span>
+  </div>
+)
 
 
 export default Videocard

@@ -1,6 +1,6 @@
 {
   "short_name": "mp3tube",
-  "name": "",
+  "name": ".",
   "icons": [
     {
       "src":"https://i.imgur.com/ZykF3BZ.png",
@@ -11,5 +11,5 @@
   "start_url": "./index.html",
   "background_color": "#fff",
   "theme_color": "#ee0979",
-  "display": "standalone"
+  "display": "fullscreen"
 }
