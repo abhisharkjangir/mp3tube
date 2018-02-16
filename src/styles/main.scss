@@ -4,10 +4,12 @@ html {
 
 body,
 html {
-  margin: 0;
+  margin: auto;
   padding: 0;
+  max-width: 500px;
   height: 100%;
   font-family: 'Josefin Sans', sans-serif;
+
 }
 
 *,
@@ -71,6 +73,8 @@ p {
   background: linear-gradient(90deg,#ff6a00,#ee0979);
   border-bottom: 0;
   color: #fff;
+  max-width: 500px;
+  margin: auto;
 }
 
 .navbar-default .navbar-toggle:focus,
@@ -232,6 +236,8 @@ p {
   position: fixed;
   z-index: 9;
   bottom: 0;
+  margin: auto;
+  max-width: 500px;
   right: 0;
   left: 0;
   width: calc(100%-20px);
